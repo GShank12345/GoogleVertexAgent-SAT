@@ -1,0 +1,38 @@
+openapi: 3.0.2
+info:
+  title: SAT Question API
+  description: API to retrieve questions based on the question number
+  version: 1.0.0
+servers:
+  - url: 'https://us-central1-ai-6435a.cloudfunctions.net'
+paths:
+  /Satquestionforquestionnum:
+    get:
+      summary: Get question for the question number
+      description: Returns explanation for the specified question number
+      operationId: sat-get-question
+      parameters:
+        - in: query
+          name: question_num
+          description: The identifier of the question
+          required: true
+          schema:
+            type: number
+      responses:
+        '200':
+          description: Question and Question Number
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  question_num:
+                    type: number
+                    description: The identifier for the question
+                  question:
+                    type: string
+                    description: The question for the question number
+        '400':
+          description: Bad request - Invalid query parameter or missing required parameter
+        '404':
+          description: question not found

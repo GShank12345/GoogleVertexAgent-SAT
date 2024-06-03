@@ -1,0 +1,65 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "SAT Explanation API",
+    "description": "API to retrieve explanation based on the question number",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://us-central1-ai-6435a.cloudfunctions.net"
+    }
+  ],
+  "paths": {
+    "/Satexplanationforquestion": {
+      "get": {
+        "summary": "Get explanation for the question number",
+        "description": "Returns explanation for the specified question number",
+        "operationId": "sat-get-explanation",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "question_num",
+            "description": "The identifier of the product",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Explanation and Answer",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "question_num": {
+                      "type": "number",
+                      "description": "The identifier for the question"
+                    },
+                    "explanation": {
+                      "type": "string",
+                      "description": "The explanation for the question"
+                    },
+                     "answer": {
+                      "type": "string",
+                      "description": "The answer for the question"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - Invalid query parameter or missing required parameter"
+          },
+          "404": {
+            "description": "question not found"
+          }
+        }
+      }
+    }
+  }
+}
